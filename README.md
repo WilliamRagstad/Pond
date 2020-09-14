@@ -22,7 +22,7 @@ Pond let's you write everything in Markdown and instantly produce a complete web
 
 > ## Install
 >
-> You can [Direct download](https://github.com/WilliamRagstad/Font-Manager/releases/latest/download/FontManager.exe) the latest version, or view all releases [here](https://github.com/WilliamRagstad/Font-Manager/releases).
+> You can [download the latest version](https://github.com/WilliamRagstad/Pond/releases/latest), or [view all releases](https://github.com/WilliamRagstad/Pond/releases).
 >
 > ---
 
