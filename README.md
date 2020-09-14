@@ -14,7 +14,7 @@
 
 # Welcome
 
-Have you've ever wanted to make a website from your *Markdown* just with the click of a button? Then I welcome you to Pond, a fully customizable and flexible static website generator inspired by [Django](https://docs.djangoproject.com/en/3.0/ref/templates/language/)’s *(or [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)'s)* templates.
+Have you ever wanted to create a website from your *Markdown* just with the click of a button? Then I welcome you to Pond, a fully customizable and flexible static website generator inspired by [Django](https://docs.djangoproject.com/en/3.0/ref/templates/language/)’s *(or [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)'s)* templates.
 
 Pond let's you write everything in Markdown and instantly produce a complete website of your liking ready for publication.
 
@@ -23,6 +23,8 @@ Pond let's you write everything in Markdown and instantly produce a complete web
 > ## Install
 >
 > You can [download the latest version](https://github.com/WilliamRagstad/Pond/releases/latest), or [view all releases](https://github.com/WilliamRagstad/Pond/releases).
+>
+> If you want to use Pond in other projects, read how you can [install Pond to PATH](#install-to-path).
 >
 > ---
 
@@ -170,3 +172,46 @@ Produces:
 ```
 
 Easy huh? Just build your own templates to get started!
+
+
+
+# Install to PATH
+
+This is for those who are going to use Pond in more than one projects, or just like to keep their files organized.
+
+First, [download Pond](#install) and unzip the package. Create a folder in your desired location, we suggest `C:\Program Files (x86)\Pond`, and move the content files from the zip into this folder. Next, click on the windows home icon in the bottom left corner, and serach `Environment Variables` . The window should look like the one below. 
+
+<div align=center>
+    <img src="assets/win_advancedsettings.gif" alt="Environment Variables" style="zoom:70%;" />
+</div>
+
+
+
+Click the button at the bottom that says `Environment Variables`. This window should pop up.
+
+<div align=center>
+    <img src="assets/win_sysvariables.gif" alt="Environment Variables" style="zoom:70%;" />
+</div>
+
+Now, look for the variable `Path`, click `Edit...` and `New`.  Now paste the location in which you put all Pond files, ours was `C:\Program Files (x86)\Pond`. Press `OK` everywhere.
+
+Now you have installed Pond globally on your computer. Open up a terminal and type `Pond` to test it out.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
