@@ -130,6 +130,7 @@ HTML Template:
         	<h2>{{ chapter.title }}</h2>
         	{% for element in chapter.elements %}
         		{% raw element.toHTML() %}
+        		{# This line above does the same thing as the commented row below. #}
         		{#
         		{% switch element.type %}
         			{% case Text %}
