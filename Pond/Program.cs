@@ -9,43 +9,49 @@ namespace Pond
 {
     class Program
     {
+        static readonly ArgumentsTemplate At = new ArgumentsTemplate(
+            new List<ArgumentOption>
+            {
+                new ArgumentOption("c", "Configuration file", new List<ArgumentParameter>
+                {
+                    new ArgumentParameter("file", typeof(string), "path to config file")
+                })
+            }, false,
+            new List<ArgumentCommand>
+            {
+                new ArgumentCommand("init", "Initialize a new Pond project")
+            }
+        );
         static void Main(string[] args)
         {
-            args = "/c file.json".Split(' ');
+            args = "init /c file.json".Split(' ');
 
             Arguments a = Arguments.Parse(args);
 
-            if (args.Length == 0 || a.ContainsKey("h") || a.ContainsKey("?"))
+            if (a.ContainsKey("h") || a.ContainsKey("?"))At.ShowManual();
+            else if (a.Keyless[0] == "init")
             {
-                ArgumentsTemplate at = new ArgumentsTemplate(
-                    new List<ArgumentOption>
-                    {
-                        new ArgumentOption("c", "Configuration file", new List<ArgumentParameter>
-                        {
-                            new ArgumentParameter("file", typeof(string), "path to config file", true)
-                        })
-                    }
-                );
-                at.ShowManual();
-                return;
+                // Initialize new Pond project
+                Console.WriteLine("Project initialization is not supported in this experimental version! Please wait for official release.", ConsoleColor.Yellow);
+
             }
+            else if (a.ContainsKey("c"))
+            {
+                Config config = LoadConfig(a);
+                Console.WriteLine("This feature is not supported in this experimental version! Please wait for official release.", ConsoleColor.Yellow);
 
-            Config config = LoadConfig(a);
-
-
-
+                // Run Pond
+            }
+            else At.ShowManual();
         }
 
         static Config LoadConfig(Arguments a)
         {
-            if (a.ContainsKey("c"))
-            {
-                string configFile = a["c"][0];
-                if (string.IsNullOrEmpty(configFile)) Console.WriteLine("No config file was provided! Please enter a valid filepath.", ConsoleColor.Red);
-                else if (!File.Exists(configFile)) Console.WriteLine("Config file did not exist! Please enter a valid filepath.", ConsoleColor.Red);
-                else if (Path.GetExtension(configFile).ToLower() != ".json") Console.WriteLine("Config file did not exist! Please enter a valid filepath.", ConsoleColor.Red);
-                else return JsonConvert.DeserializeObject<Config>(File.ReadAllText(configFile));
-            }
+            string configFile = a["c"][0];
+            if (string.IsNullOrEmpty(configFile)) Console.WriteLine("No config file was provided! Please enter a valid filepath.", ConsoleColor.Red);
+            else if (!File.Exists(configFile)) Console.WriteLine("Config file did not exist! Please enter a valid filepath.", ConsoleColor.Red);
+            else if (Path.GetExtension(configFile).ToLower() != ".json") Console.WriteLine("Config file did not exist! Please enter a valid filepath.", ConsoleColor.Red);
+            else return JsonConvert.DeserializeObject<Config>(File.ReadAllText(configFile));
             return Config.Default;
         }
     }
