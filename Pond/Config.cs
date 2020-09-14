@@ -6,13 +6,14 @@ namespace Pond
 {
     public class Config
     {
-        public static Config Default = new Config("articles");
+        public static Config Default = new Config("articles", "site");
 
-        public string ContentRoot;
+        public string ContentRoot, OutputPath;
 
-        public Config(string contentRoot)
+        public Config(string contentRoot, string outputPath)
         {
             ContentRoot = contentRoot;
+            OutputPath = outputPath;
         }
     }
 }
