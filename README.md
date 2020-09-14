@@ -127,7 +127,7 @@ HTML Template:
     <body>
         <h1> {{ TITLE }} </h1>
         {% for chapter in CHAPTERS %}
-        	<h2>{{ chapter.title }}</h2>
+        	<h2> {{ chapter.title }} </h2>
         	{% for element in chapter.elements %}
         		{% raw element.toHTML() %}
         		{# This line above does the same thing as the commented row below. #}
@@ -147,3 +147,22 @@ HTML Template:
 </html>
 ```
 
+Produces:
+
+```html
+<html>
+    <head>
+        <title>Here is My fancy title</title>
+    </head>
+    <body>
+        <h1> My fancy title </h1>
+        <h2> Welcome </h2>
+        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt metus ac velit facilisis elementum. Nam iaculis sagittis ante, non rhoncus risus mattis at. Integer semper felis ac pretium placerat. Maecenas placerat ipsum ut odio egestas, rutrum gravida velit suscipit. Sed ornare, sapien non ornare ultrices, mi mauris ullamcorper magna, eget sollicitudin nibh tellus ac nunc. Curabitur tempus ornare ornare. Pellentesque urna diam, bibendum nec urna tristique, malesuada iaculis odio. Integer finibus magna ac nunc scelerisque commodo. Nunc porta massa quis est porttitor lobortis. Quisque finibus lorem vitae ante consequat tincidunt. Aliquam efficitur eros vitae ligula tempor, a interdum ex aliquet. Mauris nibh nibh, mollis vitae est quis, tempus sollicitudin mauris. Vestibulum cursus, ligula sit amet sodales venenatis, orci sem sagittis est, eu mattis orci tellus a nibh. Vestibulum tempus lacus sed nunc imperdiet porttitor. Morbi gravida ullamcorper fermentum. </p>
+        <img src="assets/img.png" alt="Maybe an image"/>
+        <h2> The end </h2>
+        <p> Praesent cursus elit id lacus hendrerit, ac interdum ante euismod. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed sollicitudin suscipit hendrerit. Pellentesque faucibus eget eros at auctor. Ut pulvinar ante vel neque dignissim, gravida pulvinar felis pellentesque. Ut fermentum molestie efficitur. Praesent molestie vehicula enim vitae tincidunt. Quisque vel pellentesque dui. Morbi a arcu nulla. Nullam aliquet vel quam et vehicula. Aliquam erat volutpat. </p>
+    </body>
+</html>
+```
+
+Easy huh? Just build your own templates to get started!
