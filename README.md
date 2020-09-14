@@ -73,15 +73,19 @@ All global variables are **UPPERCASE**. These are:
 
 Tags formatted as `{{ [expression] }}` will produce a text result. If you desire to utilize some kind of compile-time action, these are formatted as `{% [expression] %}` and will produce different results depending on the action type described by the expression.
 
+### Pipes
+
+#### Raw HTML
+
+Use the `{{ [expression] | raw }}` notation to print out the result of the expression as raw HTML. This may be unsafe if users can control the expression value. 
+
 ### Actions
 
-#### 1. Loops
+#### Loops
 
 Use the `{% for [element] in [array] %}` notation for iterating over a text array. Remember to always add the corresponding closing `{% endfor %}` .
 
-#### 2. Raw HTML
 
-Use the `{% raw [expression] %}` notation to print out the result of the expression as raw HTML. This may be unsafe if users can control the expression value. 
 
 ## Objects
 
@@ -129,7 +133,7 @@ HTML Template:
         {% for chapter in CHAPTERS %}
         	<h2> {{ chapter.title }} </h2>
         	{% for element in chapter.elements %}
-        		{% raw element.toHTML() %}
+        		{{ element.toHTML() | raw }}
         		{# This line above does the same thing as the commented row below. #}
         		{#
         		{% switch element.type %}
