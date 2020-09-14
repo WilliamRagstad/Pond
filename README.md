@@ -1,5 +1,5 @@
 <div align=center>
- <img alt="Pong Logo" src="assets/logo.png" width="50%">
+ <img alt="Pond Logo" src="assets/logo.png" width="50%">
  <br>
  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/WilliamRagstad/Pond">
  <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/WilliamRagstad/Pond/total">
@@ -11,9 +11,10 @@
 
 
 
+
 # Welcome
 
-Have you've ever wanted to make a website from your *Markdown* just with the click of a button? Then I welcome you to Pond, a fully customizable and flexible static website generator modelled after [Django](https://docs.djangoproject.com/en/3.0/ref/templates/language/)’s *(or [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)'s)* templates.
+Have you've ever wanted to make a website from your *Markdown* just with the click of a button? Then I welcome you to Pond, a fully customizable and flexible static website generator inspired by [Django](https://docs.djangoproject.com/en/3.0/ref/templates/language/)’s *(or [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)'s)* templates.
 
 Pond let's you write everything in Markdown and instantly produce a complete website of your liking ready for publication.
 
@@ -30,14 +31,18 @@ Pond let's you write everything in Markdown and instantly produce a complete web
 # Usage
 
 ```bash
-Pond Command Line v1.0.0
+Pond Command Line 1.0.0.0
 
-Usage: Pond (options)
+Usage: Pond (options) (commands)
 
 Options:
 ¨¨¨¨¨¨¨¨
-  /c (file)  Configuration file
-  
+  /c [file]  Configuration file
+
+Commands:
+¨¨¨¨¨¨¨¨¨
+  init    Initialize a new Pond project
+
 ```
 
 
@@ -49,6 +54,51 @@ As promised, Pond comes with with extensive customization and flexibility so you
 You write all the content in Markdown, which is then combined with the correct HTML template and CSS stylesheet to produce a finished page.
 
 [This is not yet written]
+
+
+
+## Template Syntax
+
+### Global variables
+
+All global variables are **UPPERCASE**. These are:
+
+| Name     | Description         | Type              |
+| -------- | ------------------- | ----------------- |
+| TITLE    | First article title | **Text**          |
+| TITLES   | All article titles  | **Text** array    |
+| CHAPTERS | All chapter titles  | **Chapter** array |
+
+### Template tags
+
+Tags formatted as `{{ [expression] }}` will produce a text result. If you desire to utilize some kind of compile-time action, these are formatted as `{% [expression] %}` and will produce different results depending on the action type described by the expression.
+
+### Actions
+
+#### 1. Loops
+
+Use the `{% for [element] in [array] %}` notation for iterating over a text array. Remember to always add the corresponding closing `{% endfor %}` .
+
+#### 2. Raw HTML
+
+Use the `{% raw [expression] %}` notation to print out the result of the expression as raw HTML. This may be unsafe if users can control the expression value. 
+
+## Objects
+
+| Type        | Description                                  | Fields                                           | Methods  |
+| ----------- | -------------------------------------------- | ------------------------------------------------ | -------- |
+| **Chapter** | Holds data about each and every chapter      | title: **Text**<br />elements: **Element** array |          |
+| **Element** | Text, Images, Quotes, etc.                   | type: Type of object                             | toHTML() |
+| **Text**    | A sequence of characters. Is an **Element**. | text: **String**                                 |          |
+| **Image**   | Graphics. Is an **Element**                  | src: **String**, alt: **String**                 |          |
+
+
+
+## Methods
+
+| Name     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| toHTML() | Returns the default HTML implementation of the specific **Element**. |
 
 
 
@@ -69,13 +119,29 @@ Praesent cursus elit id lacus hendrerit, ac interdum ante euismod. Interdum et m
 
 HTML Template:
 
-```html
+```django
 <html>
     <head>
-        <title>Here is {{ title }}</title>
+        <title>Here is {{ TITLE }}</title>
     </head>
     <body>
-        
+        <h1> {{ TITLE }} </h1>
+        {% for chapter in CHAPTERS %}
+        	<h2>{{ chapter.title }}</h2>
+        	{% for element in chapter.elements %}
+        		{% raw element.toHTML() %}
+        		{#
+        		{% switch element.type %}
+        			{% case Text %}
+        				<p> {{ element.text }} </p>
+        			{% endcase %}
+        			{% case Image %}
+        				<img src="{{ element.src }}" alt="{{ element.alt }}"/>
+        			{% endcase %}
+        		{% endswitch %}
+        		#}
+        	{% endfor %}
+        {% endfor %}
     </body>
 </html>
 ```
