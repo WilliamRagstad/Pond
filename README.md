@@ -17,6 +17,16 @@ Have you've ever wanted to make a website from your *Markdown* just with the cli
 
 Pond let's you write everything in Markdown and instantly produce a complete website of your liking ready for publication.
 
+
+
+> ## Install
+>
+> You can [Direct download](https://github.com/WilliamRagstad/Font-Manager/releases/latest/download/FontManager.exe) the latest version, or view all releases [here](https://github.com/WilliamRagstad/Font-Manager/releases).
+>
+> ---
+
+
+
 # Usage
 
 ```bash
