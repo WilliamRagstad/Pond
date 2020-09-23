@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using ArgumentsUtil;
 using Newtonsoft.Json;
+using Pond.Core;
+using Pond.Model;
 using Console = EzConsole.EzConsole;
 
 namespace Pond
@@ -23,9 +26,11 @@ namespace Pond
                 new ArgumentCommand("init", "Initialize a new Pond project")
             }
         );
+
+        private static readonly bool Debug = true;
         static void Main(string[] args)
         {
-            // args = "init /c file.json".Split(' ');
+            args = new [] {"build", @"C:\Users\willi\Desktop\pond test\config.json"};
 
             Arguments a = Arguments.Parse(args);
 
@@ -36,42 +41,47 @@ namespace Pond
                 #region Initialize
 
                 string cd = Directory.GetCurrentDirectory();
-                if (Confirm($"Are you sure you want to create a new project in '{cd}'? "))
-                {
-                    bool useConf = Confirm("Do you need a custom config file? ");
-                    string configPath = null;
-                    if (useConf)
-                    {
-                        string json = JsonConvert.SerializeObject(Config.Default, Formatting.Indented);
-                        configPath = Path.Combine(cd, "config.json");
-                        Console.WriteLine($"Creating {configPath}...");
-                        File.WriteAllText(configPath, json);
-                    }
+                string json = JsonConvert.SerializeObject(Config.Default, Formatting.Indented);
+                string configPath = Path.Combine(cd, "config.json");
+                Console.WriteLine($"Creating {configPath}...");
+                File.WriteAllText(configPath, json);
 
-                    string buildPath = Path.Combine(cd, "build.bat");
-                    Console.WriteLine($"Creating {buildPath}...");
-                    File.WriteAllText(buildPath, $@"@echo off
-Pond build{( useConf ? $" \"{configPath}\"" : "" )}
+                #region Folders
+                    
+                Directory.CreateDirectory(Path.Combine(cd, Config.Default.ArticlesPath));
+                Directory.CreateDirectory(Path.Combine(cd, Config.Default.TemplatesPath));
+                Directory.CreateDirectory(Path.Combine(cd, Config.Default.StylesPath));
+                Directory.CreateDirectory(Path.Combine(cd, Config.Default.OutputPath));
+
+                #endregion
+
+                string buildPath = Path.Combine(cd, "build.bat");
+                Console.WriteLine($"Creating {buildPath}...");
+                File.WriteAllText(buildPath, $@"@echo off
+Pond build ""{configPath}""
 pause
 ");
-                    Console.WriteLine("Done! Project has successfully been initialize.", ConsoleColor.Green);
-                }
-                else Console.WriteLine("Project canceled.");
+                Console.WriteLine("Done. Project was successfully initialized!", ConsoleColor.Green);
 
                 #endregion
             }
-            else if (a.Keyless[0] == "build")
+            else if (a.Keyless.Count >= 2 && a.Keyless[0] == "build")
             {
                 // Run Pond
                 #region Build
 
+                string configDirectory = Path.GetDirectoryName(a.Keyless[1]);
+
                 Console.WriteLine("Building project...", ConsoleColor.Yellow);
                 Config config = LoadConfig(a);
 
-                Console.WriteLine("Compiling...", ConsoleColor.Yellow);
-                PondCompiler.Compile(config);
+                if (config != null)
+                {
+                    PondCompiler.Compile(configDirectory, config, Debug);
                 
-                Console.WriteLine("Done! Website has successfully been built.", ConsoleColor.Green);
+                    Console.WriteLine("Done. Website was successfully built!", ConsoleColor.Green);
+                }
+                else Console.WriteLine("Could not load config!", ConsoleColor.Red);
 
                 #endregion
             }
@@ -102,8 +112,8 @@ pause
                 else if (Path.GetExtension(configFile).ToLower() != ".json") Console.WriteLine("Config file did not exist! Please enter a valid filepath.", ConsoleColor.Red);
                 else return JsonConvert.DeserializeObject<Config>(File.ReadAllText(configFile));
             }
-            Console.WriteLine("Loading default config...", ConsoleColor.Yellow);
-            return Config.Default;
+
+            return null;
         }
     }
 }
