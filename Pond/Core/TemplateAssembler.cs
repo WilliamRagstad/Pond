@@ -22,9 +22,9 @@ namespace Pond.Core
             TemplateDocument document = TemplateDocument.ParseFile(template);
             foreach (TemplateBlock block in document.Elements)
             {
-                if (block is HTMLBlock html) sb.AppendLine(html.Text.Trim());
+                if (block is HTMLBlock html) sb.Append(html.Text);
                 if (block is TextBlock text) sb.Append(TextEvaluator(text, data).Trim());
-                if (block is ActionBlock action) sb.AppendLine(ActionEvaluator(action, data).Trim());
+                if (block is ActionBlock action) sb.Append(ActionEvaluator(action, data));
             }
             return sb.ToString();
         }
