@@ -24,13 +24,13 @@ Pond let's you write everything in Markdown and instantly produce a complete web
 >
 > You can [download the latest version](https://github.com/WilliamRagstad/Pond/releases/latest), or [view all releases](https://github.com/WilliamRagstad/Pond/releases).
 >
-> If you want to use Pond in other projects, read how you can [install Pond to PATH](#install-to-path).
+> If you want to use Pond in other projects, read how you can [install Pond to PATH](#install-pond-to-path).
 >
 > ---
 
 
 
-# Usage
+# CLI usage
 
 ```bash
 Pond Command Line 1.0.0.0
@@ -63,13 +63,16 @@ You write all the content in Markdown, which is then combined with the correct H
 
 ### Global variables
 
-All global variables are **UPPERCASE**. These are:
+All global variables are **UPPERCASE**.
+These are:
 
-| Name     | Description         | Type              |
-| -------- | ------------------- | ----------------- |
-| TITLE    | First article title | **Text**          |
-| TITLES   | All article titles  | **Text** array    |
-| CHAPTERS | All chapter titles  | **Chapter** array |
+| Name     | Description                 | Type              |
+| -------- | --------------------------- | ----------------- |
+| TITLE    | The article title           | **Text**          |
+| CHAPTERS | Data about all chapter      | **Chapter** array |
+| ELEMENTS | All elements in the article | **Element** array |
+
+
 
 ### Template tags
 
@@ -95,12 +98,10 @@ Use the `{% for [element] in [array] %}` notation for iterating over a text arra
 
 ## Objects
 
-| Type        | Description                                  | Fields                                           | Methods  |
-| ----------- | -------------------------------------------- | ------------------------------------------------ | -------- |
-| **Chapter** | Holds data about each and every chapter      | title: **Text**<br />elements: **Element** array |          |
-| **Element** | Text, Images, Quotes, etc.                   | type: Type of object                             | toHTML() |
-| **Text**    | A sequence of characters. Is an **Element**. | text: **String**                                 |          |
-| **Image**   | Graphics. Is an **Element**                  | src: **String**, alt: **String**                 |          |
+| Type        | Description                              | Fields                                       | Methods  |
+| ----------- | ---------------------------------------- | -------------------------------------------- | -------- |
+| **Chapter** | Holds data about each and every chapter. | title: **Text**, elements: **Element** array |          |
+| **Element** | Text, Images, Quotes, etc.               |                                              | toHTML() |
 
 
 
@@ -179,7 +180,7 @@ Easy huh? Just build your own templates to get started!
 
 
 
-# Install to PATH
+# Install Pond to PATH
 
 This is for those who are going to use Pond in more than one projects, or just like to keep their files organized.
 
