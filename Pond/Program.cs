@@ -27,7 +27,7 @@ namespace Pond
             }
         );
 
-        private static readonly bool Debug = true;
+        private static readonly bool Debug = false;
         static void Main(string[] args)
         {
             args = new [] {"build", @"C:\Users\willi\Desktop\pond test\config.json"};

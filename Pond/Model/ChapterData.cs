@@ -7,7 +7,7 @@ namespace Pond.Model
 {
     public class ChapterData
     {
-        public HeaderBlock Title;
+        public string Title;
         public MarkdownBlock[] Elements;
     }
 }

@@ -8,7 +8,7 @@ namespace Pond.Model
     public class ArticleData
     {
         public ArticleHeadInfo HeadInfo { get; }
-        public HeaderBlock TITLE;
+        public string TITLE;
         public ChapterData[] CHAPTERS;
         public MarkdownBlock[] ELEMENTS;
 

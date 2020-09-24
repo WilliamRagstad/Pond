@@ -40,7 +40,7 @@ namespace Pond.Core
                 // Add old
                 AddChapter();
                 // New chapter
-                chapter = new ChapterData {Title = header};
+                chapter = new ChapterData {Title = header.ToString().Trim()};
                 chapterElements = new List<MarkdownBlock>();
             }
 
@@ -55,7 +55,7 @@ namespace Pond.Core
                 {
                     if (header.HeaderLevel <= 2)
                     {
-                        if (header.HeaderLevel == 1 && ad.TITLE == null) ad.TITLE = header;
+                        if (header.HeaderLevel == 1 && ad.TITLE == null) ad.TITLE = header.ToString().Trim();
                         NewChapter(header);
                         continue;
                     }

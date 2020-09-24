@@ -68,7 +68,7 @@ These are:
 
 | Name     | Description                 | Type              |
 | -------- | --------------------------- | ----------------- |
-| TITLE    | The article title           | **Text**          |
+| TITLE    | The article title           | **string**        |
 | CHAPTERS | Data about all chapter      | **Chapter** array |
 | ELEMENTS | All elements in the article | **Element** array |
 
@@ -86,9 +86,17 @@ Tags formatted as `{{ [expression] }}` will produce a text result. If you desire
 
 ### Actions
 
+#### About
+
+Pond comes shipping with a powerful integration of the C# programming language, which allows you to create advanced logic in your template files.
+
+#### If-statements
+
+Use the `{% if [expression] %}` notation to only use a specific template if the expression returns true. Remember to always add the corresponding closing `{% endif %}` or just `{% end %}` .
+
 #### Loops
 
-Use the `{% for [element] in [array] %}` notation for iterating over a text array. Remember to always add the corresponding closing `{% endfor %}` .
+Use the `{% for [element] in [array] %}` notation for iterating over a text array. Remember to always add the corresponding closing `{% endfor %}` or just `{% end %}` .
 
 
 
@@ -129,26 +137,19 @@ HTML Template:
 ```django
 <html>
     <head>
-        <title>Here is {{ TITLE }}</title>
+        <title>Article | {{ TITLE.ToLower() }}</title>
     </head>
     <body>
         <h1> {{ TITLE }} </h1>
         {% for chapter in CHAPTERS %}
-        	<h2> {{ chapter.title }} </h2>
-        	{% for element in chapter.elements %}
-        		{{ element.toHTML() | raw }}
-        		{# This line above does the same thing as the commented row below. #}
-        		{#
-        		{% switch element.type %}
-        			{% case Text %}
-        				<p> {{ element.text }} </p>
-        			{% endcase %}
-        			{% case Image %}
-        				<img src="{{ element.src }}" alt="{{ element.alt }}"/>
-        			{% endcase %}
-        		{% endswitch %}
-        		#}
-        	{% endfor %}
+        <section id="{{ chapter.Title }}">
+            {% if chapter.Title.ToString().Trim() != string.Empty %}
+            <h1>{{ chapter.Title }}</h1>
+            {% endif %}
+            {% for elm in chapter.Elements %}
+                {{ elm.ToHtml() }}
+            {% endfor %}
+        </section>
         {% endfor %}
     </body>
 </html>
@@ -159,10 +160,10 @@ Produces:
 ```html
 <html>
     <head>
-        <title>Here is My fancy title</title>
+        <title>Article | hello word</title>
     </head>
     <body>
-        <h1> My fancy title </h1>
+        <h1> Hello World </h1>
         <h2> Welcome </h2>
         <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt metus ac velit facilisis elementum. Nam iaculis sagittis ante, non rhoncus risus mattis at. Integer semper felis ac pretium placerat. Maecenas placerat ipsum ut odio egestas, rutrum gravida velit suscipit. Sed ornare, sapien non ornare ultrices, mi mauris ullamcorper magna, eget sollicitudin nibh tellus ac nunc. Curabitur tempus ornare ornare. Pellentesque urna diam, bibendum nec urna tristique, malesuada iaculis odio. Integer finibus magna ac nunc scelerisque commodo. Nunc porta massa quis est porttitor lobortis. Quisque finibus lorem vitae ante consequat tincidunt. Aliquam efficitur eros vitae ligula tempor, a interdum ex aliquet. Mauris nibh nibh, mollis vitae est quis, tempus sollicitudin mauris. Vestibulum cursus, ligula sit amet sodales venenatis, orci sem sagittis est, eu mattis orci tellus a nibh. Vestibulum tempus lacus sed nunc imperdiet porttitor. Morbi gravida ullamcorper fermentum. </p>
         <img src="assets/img.png" alt="Maybe an image"/>

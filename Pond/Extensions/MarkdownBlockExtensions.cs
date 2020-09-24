@@ -7,11 +7,11 @@ namespace Pond.Extensions
 {
     public static class MarkdownBlockExtensions
     {
-        public static string ToHtml(this MarkdownBlock block, string indent = "")
+        public static string ToHtml(this MarkdownBlock block)
         {
-            if (block is ParagraphBlock paragraph) return $"<p>\n{indent + Settings.Indent + paragraph.Inlines.ToHtml(indent + Settings.Indent).TrimStart()}</p>";
+            if (block is ParagraphBlock paragraph) return $"<p>{paragraph.Inlines.ToHtml().TrimStart()}</p>";
             if (block is CodeBlock code) return $"<code class=\"language-{code.CodeLanguage}\">{code.Text}</code>";
-            if (block is HeaderBlock header) return $"<h{header.HeaderLevel}>{header.Inlines.ToHtml(indent + Settings.Indent) + indent}</h{header.HeaderLevel}>";
+            if (block is HeaderBlock header) return $"<h{header.HeaderLevel}>{header.Inlines.ToHtml()}</h{header.HeaderLevel}>";
             if (block is HorizontalRuleBlock) return $"<hr>";
             if (block is ListBlock list)
             {
@@ -21,7 +21,7 @@ namespace Pond.Extensions
                 {
                     foreach (MarkdownBlock itemBlock in item.Blocks)
                     {
-                        sb.AppendLine(indent + itemBlock.ToHtml(indent + Settings.Indent));
+                        sb.AppendLine(itemBlock.ToHtml());
                     }
                 }
                 sb.AppendLine("</li>");

@@ -50,8 +50,7 @@ namespace Pond.Core
             // Set global variables
             foreach (FieldInfo fieldInfo in data.GetType().GetFields())
             {
-                object? value = fieldInfo.GetValue(data);
-                _interpreter.SetVariable(fieldInfo.Name, value);
+                _interpreter.SetVariable(fieldInfo.Name, fieldInfo.GetValue(data));
             }
 
             _interpreter.Reference(typeof(MarkdownBlockExtensions));
@@ -108,9 +107,15 @@ namespace Pond.Core
                         foreach (var element in collection)
                         {
                             localVariables[enumeratorVariable] = element;
-                            string partialAssemble = Assemble(data, action.Elements, localVariables);
-                            sb.AppendLine(partialAssemble);
+                            sb.Append(Assemble(data, action.Elements, localVariables));
                         }
+                    }
+                    break;
+                case "if":
+                    string expression = ActionIfGetExpression(action.ActionExpression);
+                    if (_interpreter.Eval<bool>(expression))
+                    {
+                        sb.Append(Assemble(data, action.Elements, localVariables));
                     }
                     break;
                 default:
@@ -123,6 +128,8 @@ namespace Pond.Core
 
         #region Action Functions
 
+        #region For
+        
         private static IEnumerable ActionForGetEnumerable(string actionExpression, ArticleData data, Dictionary<string, object> localVariables)
         {
             string collection = actionExpression.Split("in")[1].Trim();
@@ -145,6 +152,14 @@ namespace Pond.Core
 
         private static string ActionForGetEnumeratorVariable(string actionExpression) => actionExpression.Split("for")[1].Split("in")[0].Trim();
 
+        #endregion
+
+        #region If
+
+
+        private static string ActionIfGetExpression(string actionExpression) => actionExpression.Split("if")[1].Trim();
+
+        #endregion
 
         #endregion
     }

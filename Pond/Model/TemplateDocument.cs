@@ -26,7 +26,10 @@ namespace Pond.Model
 
             void AddHTMLCache()
             {
-                if (!string.IsNullOrEmpty(cache)) elements.Add(new HTMLBlock(cache));
+                if (!string.IsNullOrEmpty(cache))
+                {
+                    elements.Add(new HTMLBlock(cache));
+                }
                 cache = string.Empty; // Clear cache
             }
 
@@ -116,11 +119,17 @@ namespace Pond.Model
 
                     if (cc == '{' && (nc == '{' || nc == '%'))
                     {
+                        cache = TrimEnd(cache);
                         AddHTMLCache();
                         i += 2; // Skip opening parenthesis
                         if      (nc == '{') ParseText();
                         else if (nc == '%') ParseAction();
                         i++; // Skip closing parenthesis
+                        if ("\r\n".Contains(content[i]))
+                        {
+                            cache = TrimEnd(cache);
+                            i++;
+                        }
                         continue;
                     }
                 }
@@ -131,5 +140,33 @@ namespace Pond.Model
             AddHTMLCache();
             return new TemplateDocument { Elements = elements.ToArray() };
         }
+
+        #region Helper Functions
+
+        private static string TrimEnd(string source)
+        {
+            int j = source.Length;
+            bool addOneSpace = false;
+            while (j > 0 && "\r\n\t ".Contains(source[j - 1]))
+            {
+                if (source[j - 1] == ' ') addOneSpace = true;
+                j--;
+            }
+            return source.Substring(0, j) + (addOneSpace ? " " : "");
+        }
+
+        private static string TrimStart(string source)
+        {
+            int j = 0;
+            bool addOneSpace = false;
+            while (j < source.Length && "\r\n\t ".Contains(source[j]))
+            {
+                if (source[j] == ' ') addOneSpace = true;
+                j++;
+            }
+            return  (addOneSpace ? " " : "") + source.Substring(j, source.Length - j);
+        }
+
+        #endregion
     }
 }
