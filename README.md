@@ -78,15 +78,11 @@ These are:
 
 Tags formatted as `{{ [expression] }}` will produce a text result. If you desire to utilize some kind of compile-time action, these are formatted as `{% [expression] %}` and will produce different results depending on the action type described by the expression.
 
-### Arrays
+### ~~Pipes~~
 
-All object arrays can be directly indexed in using `[]` notation starting from 0. So to get the second item in an array you'll write `array[1]`.
+#### ~~Raw HTML~~
 
-### Pipes
-
-#### Raw HTML
-
-Use the `{{ [expression] | raw }}` notation to print out the result of the expression as raw HTML. This may be unsafe if users can control the expression value. 
+~~Use the `{{ [expression] | raw }}` notation to print out the result of the expression as raw HTML. This may be unsafe if users can control the expression value.~~ 
 
 ### Actions
 
