@@ -7,5 +7,6 @@ namespace Pond
     static class Settings
     {
         public const string Indent = "    ";
+        public const string EvaluateError = "[Failed to evaluate]";
     }
 }

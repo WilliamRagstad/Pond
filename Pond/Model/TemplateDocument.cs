@@ -26,7 +26,7 @@ namespace Pond.Model
 
             void AddHTMLCache()
             {
-                if (!string.IsNullOrWhiteSpace(cache)) elements.Add(new HTMLBlock(cache));
+                if (!string.IsNullOrEmpty(cache)) elements.Add(new HTMLBlock(cache));
                 cache = string.Empty; // Clear cache
             }
 

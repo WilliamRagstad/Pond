@@ -50,7 +50,8 @@ namespace Pond.Core
 
                         ArticleData ad = ArticleParser.Parse(article, ahi, debug);
 
-                        string result = TemplateAssembler.Assemble(ad, template);
+                        TemplateAssembler.InitializeInterpreter(ad);
+                        string result = TemplateAssembler.AssembleFile(ad, template);
 
                         File.WriteAllText(fileOutput, result);
                     }
