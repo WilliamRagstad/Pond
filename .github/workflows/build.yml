@@ -1,0 +1,19 @@
+name: Build and verify example
+on: [push, pull_request]
+jobs:
+  example:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: dotnet restore --locked-mode
+      - run: dotnet build --no-restore
+      - run: python tests/verify.py

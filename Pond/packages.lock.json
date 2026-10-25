@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0": {
+      "DynamicExpresso.Core": {
+        "type": "Direct",
+        "requested": "[2.3.1, )",
+        "resolved": "2.3.1",
+        "contentHash": "gAoOdAA7KypwC2aEWbm72ZcNj9ERn0GBrFyFrLm9tRZGd+z1rgnKlh+BtWJi9X32ldzOwItY/Ty5ao6CqbG5ig=="
+      },
+      "EzConsole": {
+        "type": "Direct",
+        "requested": "[1.0.0, )",
+        "resolved": "1.0.0",
+        "contentHash": "wivdqxclxwcbBg7JuFB+ayK5fyPc3fZeHNgIPxCG1nzScCGnRfOA67i3DH7tUtp4DYaaX5VjSZHIqYtOoseiLQ=="
+      },
+      "Microsoft.Toolkit.Parsers": {
+        "type": "Direct",
+        "requested": "[6.1.1, )",
+        "resolved": "6.1.1",
+        "contentHash": "t7olz/2604GyMzOJrgGPi2kK3ixXhPEA2/IAcQG2QHENfTjK/COH3dPm6tthD3+Caj/nSX8wfZIwymOcGM9iAQ==",
+        "dependencies": {
+          "Microsoft.Toolkit": "6.1.1"
+        }
+      },
+      "Newtonsoft.Json": {
+        "type": "Direct",
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Microsoft.Toolkit": {
+        "type": "Transitive",
+        "resolved": "6.1.1",
+        "contentHash": "9JpDYIXnyu+GwCuP00PzS14E8unVg4lx/HrthoYWlNT1CY9HeGzul8T5yd0j/PxgMtEY9c6t+gg+QEC8eevS+A==",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe": {
+        "type": "Transitive",
+        "resolved": "4.7.1",
+        "contentHash": "zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ=="
+      }
+    }
+  }
+}
