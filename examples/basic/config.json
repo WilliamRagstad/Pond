@@ -1,0 +1,7 @@
+{
+  "ArticlesPath": "articles",
+  "TemplatesPath": "templates",
+  "StylesPath": "style",
+  "OutputPath": "site",
+  "DefaultArticleInfo": { "Template": "page" }
+}

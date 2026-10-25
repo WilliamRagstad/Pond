@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>{{ TITLE }}</title><link rel="stylesheet" href="../../style/site.css"></head>
+<body>
+{% for chapter in CHAPTERS %}
+{% if chapter.Title != null %}
+<section><h2>{{ chapter.Title }}</h2>
+{% for element in chapter.Elements %}{{ element.ToHtml() }}
+{% end %}
+</section>
+{% endif %}
+{% endfor %}
+</body>
+</html>
